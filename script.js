@@ -83,122 +83,88 @@ const subjectsConfig = {
             { name: 'Bonus', id: 'bonus', max: 2 }
         ]
     },
+    // Add other subjects as needed...
 };
 
-// Function to update the form based on selected subject
 function updateForm() {
     const subject = document.getElementById('subject').value;
     const form = document.getElementById('subjectForm');
     const subjectConfig = subjectsConfig[subject];
 
-    form.innerHTML = ''; // Clear the form first
+    // Clear the form
+    form.innerHTML = '';
 
     // Generate input fields based on the selected subject
     subjectConfig.components.forEach(component => {
-        form.innerHTML += `
-            <input type="number" id="${component.id}" placeholder="${component.name}" required 
-                min="0" max="${component.max}">
+        const inputField = `
+            <div>
+                
+                <input 
+                    type="number" 
+                    id="${component.id}" 
+                    placeholder="${component.name}" 
+                    required 
+                    min="0" 
+                    max="${component.max}" 
+                    oninput="this.value = Math.min(Math.max(this.value, 0), ${component.max})">
+            </div>
         `;
-
-        // Add input event listener to each component for real-time capping
-        const inputField = document.getElementById(component.id);
-        inputField.addEventListener('input', function() {
-            // Cap the score as user types
-            let value = parseFloat(inputField.value);
-
-            if (isNaN(value)) value = 0; // In case the input is empty or invalid
-
-            // Cap value within the specified min/max range
-            value = Math.min(Math.max(value, 0), component.max);
-
-            // Update the input field with the capped value
-            inputField.value = value;
-        });
+        form.innerHTML += inputField;
     });
 }
 
-// Initial call to set up the form for the default subject (Python)
-updateForm();
+function calculateGrade() {
+    const subject = document.getElementById('subject').value;
+    const subjectConfig = subjectsConfig[subject];
+    let finalGrade = 0;
 
-// Function to calculate the final grade
-    
+    // Initialize variables
+    let quiz1 = 0, quiz2 = 0, endterm = 0, gaa = 0, bonus = 0, activity = 0, pe1 = 0, pe2 = 0, gaa1 = 0, gaa2 = 0;
 
-        // Loop through components and calculate the final grade
-            function calculateGrade() {
-                const subject = document.getElementById('subject').value;
-                const subjectConfig = subjectsConfig[subject];
-                let finalGrade = 0;
+    // Loop through components and calculate the final grade
+    subjectConfig.components.forEach(component => {
+        let value = parseFloat(document.getElementById(component.id).value) || 0;
+        value = Math.min(Math.max(value, 0), component.max);
 
-                // Initialize all components to zero if not entered
-                let quiz1 = 0, quiz2 = 0, endterm = 0, gaa = 0, bonus = 0, activity = 0, pe1 = 0, pe2 = 0, gaa1 = 0, gaa2 = 0;
+        // Assign specific values for subject logic
+        switch (component.id) {
+            case 'quiz1': quiz1 = value; break;
+            case 'quiz2': quiz2 = value; break;
+            case 'endterm': endterm = value; break;
+            case 'gaa': gaa = value; break;
+            case 'bonus': bonus = value; break;
+            case 'act': activity = value; break;
+            case 'gaa1': gaa1 = value; break;
+            case 'gaa2': gaa2 = value; break;
+            case 'pe1': pe1 = value; break;
+            case 'pe2': pe2 = value; break;
+        }
+    });
 
-                // Loop through components and calculate the final grade
-                subjectConfig.components.forEach(component => {
-                    let value = parseFloat(document.getElementById(component.id).value);
-
-                    // If the value is empty or invalid, set it to zero
-                    if (isNaN(value)) {
-                        value = 0;
-                    }
-
-                    // Cap the value within the specified min/max range
-                    value = Math.min(Math.max(value, 0), component.max);
-
-                    // Assign values to specific variables for subject-specific logic
-                    if (component.id === 'quiz1') quiz1 = value;
-                    if (component.id === 'quiz2') quiz2 = value;
-                    if (component.id === 'endterm') endterm = value;
-                    if (component.id === 'gaa') gaa = value;
-                    if (component.id === 'bonus') bonus = value;
-                    if (component.id === 'act') activity = value;
-                    if (component.id === 'gaa1') gaa1 = value;
-                    if (component.id === 'gaa2') gaa2 = value;
-                    if (component.id === 'pe1') pe1 = value;
-                    if (component.id === 'pe2') pe2 = value;
-
-                    // Add the capped value to the final grade
-                    finalGrade += value;
-                });
-
-    // Handle Python-specific grading formula:
+    // Subject-specific logic
     if (subject === 'python') {
         const maxPE = Math.max(pe1, pe2);
         const minPE = Math.min(pe1, pe2);
-
         finalGrade = 0.1 * gaa1 + 0.1 * gaa2 + 0.1 * quiz1 + 0.4 * endterm + 0.25 * maxPE + 0.15 * minPE + bonus;
     } else {
         const maxQuiz = Math.max(quiz1, quiz2);
         const term1 = 0.6 * endterm + 0.2 * maxQuiz;
         const term2 = 0.4 * endterm + 0.2 * quiz1 + 0.3 * quiz2;
-
-        // Choose the best of the two terms
         finalGrade = 0.1 * gaa + Math.max(term1, term2) + bonus + activity;
     }
 
-    // Cap the grade at 100
-    finalGrade = Math.min(finalGrade, 100);
+    finalGrade = Math.min(finalGrade, 100); // Cap final grade at 100
 
-    // Display the final grade
+    // Determine and display grades
     document.getElementById('finalGrade').textContent = finalGrade.toFixed(2);
-
-    // Determine letter grade
-    let letterGrade = '';
-    if (finalGrade >= 89) {
-        letterGrade = 'S';
-    } else if (finalGrade >= 79) {
-        letterGrade = 'A';
-    } else if (finalGrade >= 69) {
-        letterGrade = 'B';
-    } else if (finalGrade >= 59) {
-        letterGrade = 'C';
-    } else if (finalGrade >= 49) {
-        letterGrade = 'D';
-    } else if (finalGrade >= 39) {
-        letterGrade = 'E';
-    } else {
-        letterGrade = 'F(fail)';
-    }
-
-    // Display the letter grade
+    const letterGrade = finalGrade >= 89 ? 'S' :
+                        finalGrade >= 79 ? 'A' :
+                        finalGrade >= 69 ? 'B' :
+                        finalGrade >= 59 ? 'C' :
+                        finalGrade >= 49 ? 'D' :
+                        finalGrade >= 39 ? 'E' : 'F (fail)';
     document.getElementById('letterGrade').textContent = letterGrade;
 }
+
+// Initialize form on page load
+updateForm();
