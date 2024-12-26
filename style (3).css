@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+}
+
+/* Main background */
+.cd__main {
+    background: #000000 !important;
+    min-height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Body styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #000000;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* Ring container setup */
+.ring {
+    position: relative;
+    width: 650px;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.ring i {
+    position: absolute;
+    inset: 0;
+    border: 5px solid #fff;
+    transition: 0.5s;
+}
+
+/* Animation for each ring */
+.ring i:nth-child(1) {
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    animation: animate 6s linear infinite;
+    border-color: white;
+
+}
+
+.ring i:nth-child(2) {
+    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+    animation: animate 4s linear infinite;
+    border-color: white;
+}
+
+.ring i:nth-child(3) {
+    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+    animation: animate2 10s linear infinite;
+    border-color: white;
+}
+
+/* Hover effect on the rings */
+.ring:hover i {
+    border: 6px solid darkcyan;
+    /* Green border on hover */
+    filter: drop-shadow(0 0 20px #4CAF50);
+    /* Green glow effect */
+}
+
+/* Keyframe animation for rings */
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animate2 {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Container for text content */
+.container {
+    position: absolute;
+    width: 250px;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    color: #fff;
+}
+
+.container input {
+    height: 30px;
+    font-family: "Kanit", serif;
+    font-weight: 800;
+    width: 12em;
+    border-radius: 7px;
+    font-size: 1.3rem;
+    color: #090707;
+    margin-top: 5%;
+
+
+
+}
+
+input[type=number]::placeholder {
+    font-size: 18px;
+    font-weight: 600;
+    color: #120d0d;
+}
+
+.container .h2 {
+    color: black;
+}
+
+select {
+    height: 35px;
+    font-family: "Kanit", serif;
+    font-weight: 800;
+    border-radius: 7px;
+    font-size: 1.3rem;
+    border: 1px solid #ccc;
+
+    background-color: #f9f9f9;
+    color: #191515;
+    transition: background-color 0.3s ease
+}
+
+select option {
+    font-family: "kanit", serif;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+
+}
+
+/* Option hover effect */
+select option:hover {
+    background-color: #d3d3d3;
+}
+
+.container button {
+    font-weight: 600;
+    padding: 15px 30px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(to right, lime, yellow);
+    /* Linear gradient from blue to yellow */
+    transition: background,transform 1s ease;
+    box-shadow: 0 0 10px rgb(171, 213, 16, 0.5);
+}
+
+button:hover {
+    background: linear-gradient(45deg, lime, yellow);
+    /* Reversed gradient on hover */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 0, 0.7);
+    /* Glowing effect */
+    transform: scale(1.1);
+    /* Slightly enlarge the button for emphasis */
+}
+
+/* Text glowing effect */
+button:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 0, 0.7);
+    /* Glowing text */
+}

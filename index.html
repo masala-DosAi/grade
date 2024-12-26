@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Ring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="cd__main">
+        <div class="ring">
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+        <div class="container">
+
+            <h1>Grade Calculator</h1>
+
+            <label for="subject">Select Subject:</label>
+            <select id="subject" onchange="updateForm()">
+                <option value="ct">Computational Thinking</option>
+                <option value="python">Python</option>
+                <option value="stat1">Statistics 1</option>
+                <option value="stat2">Statistics 2</option>
+                <option value="math1">Mathematics 1</option>
+                <option value="math2">Mathematics 2</option>
+                <option value="english1">English 1</option>
+                <option value="english2">English 2</option>
+            </select>
+
+            <form id="subjectForm">
+                <!-- Dynamic Inputs Will Be Injected Here -->
+            </form>
+
+            <button type="button" onclick="calculateGrade()">Calculate Final Grade</button>
+
+            <h2>Final Grade: <span id="finalGrade"></span></h2>
+            <h3>Letter Grade: <span id="letterGrade"></span></h3>
+        </div>
+    </div>
+</body>
+    <script src="script.js"></script>
+
+</html>
