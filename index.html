@@ -3,17 +3,16 @@
 
 <head>
     <meta property="og:image" content="https://raw.githubusercontent.com/termgrade/grade/refs/heads/main/calculatorog.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRADE CALCULATOR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <title>SGRADE</title>
 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    
+    
+    <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,33 +22,59 @@
             <i></i>
             <i></i>
         </div>
-        <div class="container">
 
+        <div class="container">
+            <div>
+
+               <p><a target="_blank" href="https://github.com/masala-DosAi" style="display: inline-block;"><img src="https://images.seeklogo.com/logo-png/50/2/github-icon-logo-png_seeklogo-503247.png" alt="git" width="32" height="32" /></a>
+                  <a target="_blank" href="https://www.linkedin.com/in/yash-jha-186b62295?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app " style="display: inline-block;"><img src="https://pngimg.com/uploads/linkedIn/linkedIn_PNG26.png" alt="git" width="32" height="32" /></a>
+              </p>
+            </div>
             <h1>Grade Calculator</h1>
 
-            <label for="subject">Select Subject:</label>
-            <select id="subject" onchange="updateForm()">
-                <option value="ct">Computational Thinking</option>
-                <option value="python">Python</option>
-                <option value="stat1">Statistics 1</option>
-                <option value="stat2">Statistics 2</option>
-                <option value="math1">Mathematics 1</option>
-                <option value="math2">Mathematics 2</option>
-                <option value="english1">English 1</option>
-                <option value="english2">English 2</option>
+
+            <select id="level" onchange="updateSubjects()">
+                <option value="">select level</option>
+                <option value="foundation">Foundation</option>
+                <option value="dip_programming">Diploma in Programming</option>
+                <option value="dip_datascience">Diploma in Datascience</option>
+            </select>
+
+
+            <select id="subject" onchange="updateForm()" disabled>
+                <option value="">Select Subject</option>
             </select>
 
             <form id="subjectForm">
-                <!-- Dynamic Inputs Will Be Injected Here -->
+                
             </form>
 
-            <button type="button" onclick="calculateGrade()">Calculate Final Grade</button>
+            <button type="button" id="calculateButton" onclick="calculateGrade()" disabled>Calculate Final Grade</button>
 
-            <h2>Final Grade: <span id="finalGrade"></span></h2>
-            <h3>Letter Grade: <span id="letterGrade"></span></h3>
+            
+            <h2>Final Grade: <span id="finalGrade">-</span></h2>
+            <h3>Letter Grade: <span id="letterGrade">-</span></h3>
         </div>
     </div>
-</body>
+
+   
     <script src="script.js"></script>
+
+    <script>
+        
+        window.onload = function() {
+            updateSubjects();
+        };
+
+        document.getElementById("level").addEventListener("change", function() {
+            const subjectDropdown = document.getElementById("subject");
+            subjectDropdown.disabled = !this.value;
+        });
+
+        document.getElementById("subject").addEventListener("change", function() {
+            document.getElementById("calculateButton").disabled = !this.value;
+        });
+    </script>
+</body>
 
 </html>
