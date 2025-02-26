@@ -127,6 +127,7 @@ input[type=number]::placeholder {
     font-size: 18px;
     font-weight: 600;
     color: #120d0d;
+    text-align: center;
 }
 
 .container .h2 {
@@ -189,4 +190,10 @@ button:hover {
 button:hover {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 0, 0.7);
     /* Glowing text */
+}
+#level option,#subject option{
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+
 }
